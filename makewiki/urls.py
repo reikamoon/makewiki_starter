@@ -24,10 +24,19 @@ CHALLENGES:
         to the the `wiki` app's URL configuration. Use the above docstring to guide you if you feel stuck.
     2. Make sure Django doesn't give you any warnings or errors when you execute `python manage.py runserver`.
 """
+
+router = routers.DefaultRouter()
+router.register(r'users', views.UserViewSet)
+router.register(r'groups', views.GroupViewSet)
+router.register(r'pages', views.PageViewSet)
+
+
 urlpatterns = [
     # Admin Site
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     # Accounts app
     path('accounts/', include('accounts.urls')),
